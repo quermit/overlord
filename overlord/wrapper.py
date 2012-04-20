@@ -12,6 +12,7 @@ import core
 
 
 def call_stats(func):
+    # XXX: I don't like the singleton pattern here :( it is hard to test
     manager = core.StatisticsManager.instance().create_call_stats(
             inspect.getmodule(func), func)
     @wraps(func)
