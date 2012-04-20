@@ -6,8 +6,12 @@ Created on Apr 19, 2012
 @author: quermit
 """
 
-import functools, time, logging
+import functools
+import logging
+import time
+
 from collections import deque
+
 
 # XXX: this is strange, because user logging in flask test app is turned on
 #      after reaching localhost:8001/logs URL
@@ -23,6 +27,7 @@ class OverlordLogger(logging.getLoggerClass()):
     def handle(self, record):
         self._manager.logs.append(record)
         return super(OverlordLogger, self).handle(record)
+
 
 class StatisticsManager(object):
     
@@ -42,10 +47,13 @@ class StatisticsManager(object):
         stats = _CallStatistics(self, module, function)
         self.call_stats.append(stats)
         return stats
-    
+
+
 class Wrapper(object):
+
     def wrap(self, function):
         raise NotImplementedError
+
 
 class _CallStatistics(Wrapper):
     """
