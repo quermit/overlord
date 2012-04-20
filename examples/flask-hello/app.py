@@ -8,7 +8,6 @@ import traceback
 from flask import Flask
 from flask import request
 
-
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)) + "/../..")
 
 from overlord import server, wrapper

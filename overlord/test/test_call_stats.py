@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import unittest
-import os
 
-the_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, the_root)
 
-from overlord import wrapper, core
+from overlord import wrapper
+from overlord import core
 
 
 class TestCallStatsWrapper(unittest.TestCase):
