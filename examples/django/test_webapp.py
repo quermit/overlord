@@ -4,7 +4,7 @@ Created on Apr 20, 2012
 
 @author: quermit
 """
-
+import os
 import sys
 import time
 import random
@@ -12,8 +12,10 @@ import random
 from tornado import ioloop
 from tornado import web
 
-import server
-import wrapper
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)) + "/../..")
+
+import overlord
+from overlord import wrapper
 
 
 def some_time_consuming_function(amount):
@@ -34,7 +36,7 @@ application = web.Application([
 
 
 def run():
-    server.start()
+    overlord.start()
     application.listen(int(sys.argv[1]))
     ioloop.IOLoop.instance().start()
 
