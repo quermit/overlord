@@ -17,9 +17,12 @@ def start(address="0.0.0.0", port=8001):
         (r"/stats", StatsHandler, dict(
                 stats_manager=core.StatisticsManager.instance())),
     ]
+
+    separate_ioloop = ioloop.IOLoop()
     app = web.Application(routing)
-    app.listen(port, address)
-    t = threading.Thread(target=ioloop.IOLoop.instance().start)
+    app.listen(port, address, io_loop=separate_ioloop)
+
+    t = threading.Thread(target=separate_ioloop.start)
     t.daemon = True
     t.start()
 
