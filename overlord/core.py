@@ -10,8 +10,6 @@ import functools
 import logging
 import time
 
-from collections import deque
-
 
 # XXX: this is strange, because user logging in flask test app is turned on
 #      after reaching localhost:8001/logs URL

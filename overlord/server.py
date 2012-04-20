@@ -48,8 +48,8 @@ class LoggingHandler(web.RequestHandler):
     def get(self, level=None):
         if not level:
             self.write({
-                'logs':
-                    [LogRecord.getMessage(m) for m in self._stats_manager.logs]
+                'logs': [LogRecord.getMessage(m)
+                         for m in self._stats_manager.logs]
             })
 
         else:
