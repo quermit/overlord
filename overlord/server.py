@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
 """
 Created on Apr 19, 2012
 
 @author: quermit
 """
-import threading, logging
+
+import threading
+import logging
 
 from logging import LogRecord
 
@@ -38,6 +41,7 @@ class HomeHandler(web.RequestHandler):
 
 
 class LoggingHandler(web.RequestHandler):
+    
     def initialize(self, stats_manager):
         self._stats_manager = stats_manager
 
@@ -49,6 +53,7 @@ class LoggingHandler(web.RequestHandler):
             level = int(level)
             logging.getLogger().setLevel(level)
             self.write({'level' : logging.getLevelName(level)})
+
 
 class StatsHandler(web.RequestHandler):
     

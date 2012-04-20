@@ -7,10 +7,12 @@ Created on Apr 19, 2012
 """
 
 import inspect
+
 import core
 
-def call_stats(func):
-    # XXX: I don't like the singleton pattern here :( it is hard to test
-    manager = core.StatisticsManager.instance().create_call_stats(
-            inspect.getmodule(func), func)
+
+def call_stats(func, statistics_manager=None):
+    statistics_manager = statistics_manager or core.StatisticsManager.instance()
+    manager = statistics_manager.create_call_stats(
+                    inspect.getmodule(func), func)
     return manager.wrap(func)

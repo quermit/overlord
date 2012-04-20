@@ -1,27 +1,27 @@
 # -*- coding: utf-8 -*-
 
-import sys, unittest
+import sys
+import unittest
+import os
 
-import sys, os
 the_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, the_root)
 
-from overlord import wrapper
-from overlord.core import StatisticsManager
+from overlord import wrapper, core
+
 
 class TestCallStatsWrapper(unittest.TestCase):
-    def setUp(self):
-        self.manager = StatisticsManager.instance()
-        self.manager.call_stats = []
 
     def test_should_add_one_to_call_counter(self):
-        # given
-        wrapped_function = wrapper.call_stats(lambda: 123)
+        manager = core.StatisticsManager()
+        wrapped_function = wrapper.call_stats(lambda: 123, 
+                statistics_manager=manager)
 
-        # when
         result = wrapped_function()
 
-        # then
         self.assertEqual(123, result)
-        self.assertEqual(1, self.manager.call_stats[-1].calls)
+        self.assertEqual(1, manager.call_stats[-1].calls)
 
+
+if __name__ == "__main__":
+    unittest.main()
