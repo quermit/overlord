@@ -25,3 +25,36 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# https://github.com/h5bp/html5-boilerplate/blob/master/.gitignore
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+
+# OS or Editor folders
+.DS_Store
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.komodotools
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+intermediate
+publish
+.idea
