@@ -35,31 +35,34 @@ def start(address="0.0.0.0", port=8001):
 
 
 class HomeHandler(web.RequestHandler):
-    
+
     def get(self):
         self.write("Hello world!")
 
 
 class LoggingHandler(web.RequestHandler):
-    
+
     def initialize(self, stats_manager):
         self._stats_manager = stats_manager
 
     def get(self, level=None):
         if not level:
-            self.write({'logs' : map(LogRecord.getMessage, self._stats_manager.logs)})
+            self.write({
+                'logs':
+                    [LogRecord.getMessage(m) for m in self._stats_manager.logs]
+            })
 
         else:
             level = int(level)
             logging.getLogger().setLevel(level)
-            self.write({'level' : logging.getLevelName(level)})
+            self.write({'level': logging.getLevelName(level)})
 
 
 class StatsHandler(web.RequestHandler):
-    
+
     def initialize(self, stats_manager):
         self._stats_manager = stats_manager
-        
+
     def get(self):
         result = []
         for stats in self._stats_manager.call_stats:
