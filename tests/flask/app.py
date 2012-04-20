@@ -4,8 +4,8 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)) + "/../..")
 
 
-import time
-from flask import Flask
+import time, traceback
+from flask import Flask, request
 app = Flask(__name__)
 
 from overlord import server, wrapper
@@ -18,7 +18,7 @@ def time_consuming_function():
 # XXX: adding decorator on top will not cause stats to update
 # @wrapper.call_stats
 @app.route("/")
-@app.route("/<username>")
+@app.route("/user/<username>")
 @wrapper.call_stats
 def hello(username="World"):
     time_consuming_function()
