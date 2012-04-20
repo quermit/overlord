@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
+
 """
 Created on Apr 19, 2012
 
 @author: quermit
 """
 
+import functools, time
 
 class StatisticsManager(object):
     
@@ -22,7 +25,11 @@ class StatisticsManager(object):
         return stats
 
 
-class _CallStatistics(object):
+class Wrapper(object):
+    def wrap(self, function):
+        raise NotImplementedError
+
+class _CallStatistics(Wrapper):
     
     _TIME_CONST = 0.01
     
@@ -52,3 +59,17 @@ class _CallStatistics(object):
         
     def _exp_mov_avg(self, curr_val, next_val, time_const):
         return (1.0 - time_const) * curr_val + time_const * next_val
+    
+    def wrap(self, function):
+
+        @functools.wraps(function)
+        def wrapper(*args, **kwards):
+            start_time = time.time()
+            try:
+                result = function(*args, **kwards)
+                self.add_success(time.time() - start_time)
+                return result
+            except Exception, e:
+                self.add_failure(e)
+                raise
+        return wrapper
