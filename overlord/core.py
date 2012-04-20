@@ -84,7 +84,6 @@ class _CallStatistics(Wrapper):
         self.max_time = max(self.max_time, exec_time)
         self.avg_time = self._exp_mov_avg(
                 self.avg_time, exec_time, self._TIME_CONST)
-        print "%s %s %s" % (self.min_time, self.max_time, self.avg_time)
 
     def add_failure(self, exception):
         self.calls += 1
