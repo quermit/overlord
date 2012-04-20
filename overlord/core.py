@@ -17,10 +17,9 @@ class OverlordLogger(logging.getLoggerClass()):
 
     @property
     def _manager(self):
-        if not hasattr(self, "__manager"):
-            self.__manager = StatisticsManager.instance()
-
-        return self.__manager
+        if not hasattr(self, "_manager"):
+            self._manager = StatisticsManager.instance()
+        return self._manager
 
     def handle(self, record):
         self._manager.logs.append(record)

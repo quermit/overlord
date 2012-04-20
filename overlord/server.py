@@ -8,12 +8,10 @@ Created on Apr 19, 2012
 import threading
 import logging
 
-from logging import LogRecord
-
 from tornado import web
 from tornado import ioloop
 
-import core
+from . import core
 
 
 def start(address="0.0.0.0", port=8001):
@@ -48,7 +46,7 @@ class LoggingHandler(web.RequestHandler):
     def get(self, level=None):
         if not level:
             self.write({
-                'logs': [LogRecord.getMessage(m)
+                'logs': [logging.LogRecord.getMessage(m)
                          for m in self._stats_manager.logs]
             })
 
