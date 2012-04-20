@@ -102,7 +102,7 @@ class _CallStatistics(Wrapper):
                 self.add_success(time.time() - start_time)
                 return result
 
-            except Exception, e:
+            except Exception as e:
                 self.add_failure(e)
                 raise
 
