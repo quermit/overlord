@@ -21,7 +21,7 @@ def some_time_consuming_function(amount):
 
 
 class MainHandler(web.RequestHandler):
-    
+
     @wrapper.call_stats
     def get(self):
         some_time_consuming_function(random.random() * 3.0)
@@ -31,6 +31,7 @@ class MainHandler(web.RequestHandler):
 application = web.Application([
     (r"/", MainHandler),
 ], debug=True)
+
 
 def run():
     server.start()
