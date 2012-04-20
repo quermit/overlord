@@ -4,7 +4,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)) + "/../..")
 
 
-import time, traceback
+import time, traceback, logging
 from flask import Flask, request
 app = Flask(__name__)
 
@@ -21,6 +21,10 @@ def time_consuming_function():
 @app.route("/user/<username>")
 @wrapper.call_stats
 def hello(username="World"):
+
+    app.logger.debug("Debug message!")
+    app.logger.info("Info message!")
+
     time_consuming_function()
     return "Hello %(username)s!" % locals()
 
