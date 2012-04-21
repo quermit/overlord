@@ -37,7 +37,7 @@ application = web.Application([
 
 def run():
     overlord.start()
-    application.listen(int(sys.argv[1]))
+    application.listen(5000)
     ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":
