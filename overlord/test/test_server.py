@@ -4,7 +4,7 @@ Created on Apr 21, 2012
 @author: quermit
 """
 import mox
-import unittest
+import unittest2
 import threading
 
 from tornado import web
@@ -13,7 +13,7 @@ from tornado import ioloop
 from overlord import server
 
 
-class TestStart(unittest.TestCase):
+class TestStart(unittest2.TestCase):
 
     def setUp(self):
         self.mox = mox.Mox()
@@ -65,7 +65,7 @@ class TestStart(unittest.TestCase):
         self.assertIn(r"/", routes)
 
 
-class HomeHandler(unittest.TestCase):
+class HomeHandler(unittest2.TestCase):
     
     def setUp(self):
         self.mox = mox.Mox()
