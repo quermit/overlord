@@ -4,7 +4,7 @@ Created on Apr 19, 2012
 
 @author: quermit
 """
-
+import os
 import threading
 import logging
 
@@ -17,14 +17,19 @@ from . import core
 def start(address="0.0.0.0", port=8001):
     data = dict(stats_manager=core.StatisticsManager.instance())
 
-    routing = [
+    handlers = [
         (r"/", HomeHandler),
+        (r"/logs", LoggingHandler, data),
         (r"/logs/(.*)", LoggingHandler, data),
         (r"/stats", StatsHandler, data),
     ]
 
     separate_ioloop = ioloop.IOLoop()
-    app = web.Application(routing)
+    
+    app = web.Application(
+            handlers=handlers,
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            static_path=os.path.join(os.path.dirname(__file__), "static"))
     app.listen(port, address, io_loop=separate_ioloop)
 
     t = threading.Thread(target=separate_ioloop.start)
@@ -35,7 +40,7 @@ def start(address="0.0.0.0", port=8001):
 class HomeHandler(web.RequestHandler):
 
     def get(self):
-        self.write("Hello world!")
+        self.render("index.html")
 
 
 class LoggingHandler(web.RequestHandler):
