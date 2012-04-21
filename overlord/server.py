@@ -14,20 +14,20 @@ from tornado import ioloop
 from . import core
 
 
-def start(address="0.0.0.0", port=8001):
+def _get_routing():
     data = dict(stats_manager=core.StatisticsManager.instance())
-
-    handlers = [
+    return [
         (r"/", HomeHandler),
         (r"/logs", LoggingHandler, data),
         (r"/logs/(.*)", LoggingHandler, data),
         (r"/stats", StatsHandler, data),
-    ]
+    ]    
 
+
+def start(address="0.0.0.0", port=8001):
     separate_ioloop = ioloop.IOLoop()
-    
     app = web.Application(
-            handlers=handlers,
+            handlers=_get_routing(),
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"))
     app.listen(port, address, io_loop=separate_ioloop)
