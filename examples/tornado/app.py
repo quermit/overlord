@@ -36,9 +36,16 @@ application = web.Application([
 
 
 def run():
+    port = 5000
     overlord.start()
-    application.listen(5000)
-    ioloop.IOLoop.instance().start()
+    application.listen(port)
+    print(" * Running on http://127.0.0.1:%d/" % port)
+    try:
+        ioloop.IOLoop.instance().start()
+    except KeyboardInterrupt:
+        pass
+
 
 if __name__ == "__main__":
     run()
+
