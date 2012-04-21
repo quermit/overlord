@@ -62,7 +62,7 @@ class TestStart(unittest.TestCase):
         routes = [cfg[0] for cfg in handlers]
         
         self.assertTrue(isinstance(handlers, list))
-        self.assertIn(r"/", routes)
+        self.assertTrue(r"/" in routes)
 
 
 class HomeHandler(unittest.TestCase):
