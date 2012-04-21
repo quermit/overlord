@@ -61,3 +61,7 @@ nbproject
 intermediate
 publish
 .idea
+
+# PyDev
+.pydevproject
+
