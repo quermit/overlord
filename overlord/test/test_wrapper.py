@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import unittest2
+import unittest
 
 from overlord import wrapper
 from overlord import core
 
 
-class TestCallStatsWrapper(unittest2.TestCase):
+class TestCallStatsWrapper(unittest.TestCase):
 
     def test_should_add_one_to_call_counter(self):
         manager = core.StatisticsManager()
