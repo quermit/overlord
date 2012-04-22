@@ -17,6 +17,11 @@
   </thead>
   <tbody>
     <tr>
+        <th colspan="2">
+            General statistics
+        </th>
+    </tr>
+    <tr>
         <td>Thread count</td>
         <td>{{ resource_usage.thread_count }}</td>
     </tr>
@@ -29,6 +34,42 @@
     <tr>
         <td>Uptime</td>
         <td>{{ format_duration(resource_usage.uptime) }}</td>
+    </tr>
+
+
+    <tr>
+        <th colspan="2">
+            Memory related statistics
+        </th>
+    </tr>
+
+    <tr>
+        <td>Garbage Collector</td>
+        <td>{{ boolean(resource_usage.is_gc_enabled, "Enabled", "Disabled") }}</td>
+    </tr>
+
+    <tr>
+        <td>Generation counts</td>
+        <td>({{ join_list(resource_usage.gc_count) }})</td>
+    </tr>
+
+    <tr>
+        <td>Generation thresholds</td>
+        <td>({{ join_list(resource_usage.gc_threshold) }})</td>
+    </tr>
+
+    <tr>
+        <td>
+            Created objects <br/>
+            (<em>Without builtin classes</em>)
+        </td>
+        <td>
+            <ul class="unstyled">
+                {% for klass, count in resource_usage.created_objects %}
+                    <li>{{ count }} &mdash; {{ str(klass) }}</li>
+                {% end %}
+            </ul>
+        </td>
     </tr>
   </tbody>
 </table>

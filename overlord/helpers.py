@@ -27,3 +27,11 @@ def format_duration(handler, delta):
         amount = ["0s"]
 
     return " ".join(amount)
+
+
+def boolean(handler, value, true_value, false_value):
+    return true_value if value else false_value
+
+
+def join_list(handler, value):
+    return ", ".join(map(unicode, value))

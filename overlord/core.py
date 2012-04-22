@@ -4,10 +4,14 @@
 Created on Apr 19, 2012
 
 @author: quermit
+@author: dejw
 """
 
+import collections
 import datetime
 import functools
+import gc
+import inspect
 import logging
 import time
 import threading
@@ -124,3 +128,41 @@ class ResourceUsageManager(object):
     @property
     def uptime(self):
         return (datetime.datetime.now() - self.initialized_at).seconds
+
+    @property
+    def is_gc_enabled(self):
+        return gc.isenabled()
+
+    @property
+    def gc_count(self):
+        return gc.get_count()
+
+    @property
+    def gc_threshold(self):
+        return gc.get_threshold()
+
+    @property
+    def created_objects(self):
+        """Generates a statistics of created objects.
+
+        Returns:
+            A list of tuples (klass, count), sorted in descending order of
+            count.
+        """
+
+        objects = gc.get_objects()
+        counts = collections.defaultdict(lambda: 0)
+
+        for object_ in objects:
+            object_type = type(object_)
+
+            # FIXNE: inspect.isbuiltin(object_) seems to not working
+            is_builtin = (object_type.__module__ == '__builtin__')
+            if not is_builtin and not object_type.__module__.startswith("_"):
+
+                full_name = "%s.%s" % (object_type.__module__, object_type.__name__)
+                counts[full_name] += 1
+
+        return sorted(counts.items(), key=lambda x: x[1], reverse=True)
+
+
