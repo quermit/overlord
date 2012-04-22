@@ -16,6 +16,7 @@ import inspect
 import logging
 import os
 import sys
+import resource
 import time
 import threading
 
@@ -193,3 +194,19 @@ class ResourceUsageManager(object):
     @property
     def pid(self):
         return os.getpid()
+
+    @property
+    def rusage(self):
+        """
+        Returns:
+            A dict representing rusage structure only for current proces.
+        """
+
+        rusage_struct = resource.getrusage(resource.RUSAGE_SELF)
+        fields = [f for f in dir(rusage_struct) if not f.startswith("_")]
+
+        rusage = {}
+        for field in fields:
+            rusage[field] = getattr(rusage_struct, field)
+
+        return rusage

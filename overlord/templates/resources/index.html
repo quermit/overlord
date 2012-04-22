@@ -100,11 +100,34 @@
             (<em>Without builtin classes</em>)
         </td>
         <td>
-            <ul class="unstyled">
-                {% for klass, count in resource_usage.created_objects %}
-                    <li>{{ count }} &mdash; {{ str(klass) }}</li>
-                {% end %}
-            </ul>
+            <table class="table table-condensed table-nested">
+                <thead></thead>
+                <tbody>
+                    {% for klass, count in resource_usage.created_objects %}
+                    <tr class="unstyled">
+                        <td><code>{{ klass }}</code></td><td>{{ count }}</td>
+                    </tr>
+                    {% end %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            RUsage
+        </td>
+        <td>
+            <table class="table table-condensed table-nested">
+                <thead></thead>
+                <tbody>
+                    {% for attribute, value in resource_usage.rusage.iteritems() %}
+                    <tr class="unstyled">
+                        <td><code>{{ attribute }}</code></td><td>{{ value }}</td>
+                    </tr>
+                    {% end %}
+                </tbody>
+            </table>
         </td>
     </tr>
   </tbody>
