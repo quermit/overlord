@@ -173,7 +173,6 @@ class ResourceUsageManager(object):
 
         return sorted(counts.items(), key=lambda x: x[1], reverse=True)
 
-
     @property
     def cwd(self):
         return os.getcwd()
@@ -193,4 +192,3 @@ class ResourceUsageManager(object):
     @property
     def pid(self):
         return os.getpid()
-

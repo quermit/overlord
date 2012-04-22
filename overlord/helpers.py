@@ -29,9 +29,20 @@ def format_duration(handler, delta):
     return " ".join(amount)
 
 
-def boolean(handler, value, true_value, false_value):
+def boolean(handler, value, true_value, false_value=""):
     return true_value if value else false_value
 
 
 def join_list(handler, value, separator=", "):
     return separator.join(map(unicode, value))
+
+
+def boolean_badge(handler, value, true_value, false_value):
+    css_klass = {
+        True: "badge-success",
+        False: "badge-error"
+    }
+
+    value = bool(value)
+    text = boolean(handler, value, true_value, false_value)
+    return """<span class="badge %s">%s</span>""" % (css_klass[value], text)

@@ -18,6 +18,7 @@ import overlord
 from overlord import wrapper
 
 
+@wrapper.call_stats
 def some_time_consuming_function(amount):
     time.sleep(amount)
 
@@ -27,6 +28,7 @@ class MainHandler(web.RequestHandler):
     @wrapper.call_stats
     def get(self):
         some_time_consuming_function(random.random() * 3.0)
+        some_time_consuming_function(random.random())
         self.write("Boom!")
 
 
@@ -48,4 +50,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-

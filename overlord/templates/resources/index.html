@@ -73,8 +73,6 @@
     </tr>
 
     
-
-
     <tr>
         <th colspan="2">
             Memory related statistics
@@ -83,7 +81,7 @@
 
     <tr>
         <td>Garbage Collector</td>
-        <td>{{ boolean(resource_usage.is_gc_enabled, "Enabled", "Disabled") }}</td>
+        <td>{% raw boolean_badge(resource_usage.is_gc_enabled, "Enabled", "Disabled") %}</td>
     </tr>
 
     <tr>
