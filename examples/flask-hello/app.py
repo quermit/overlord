@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import traceback
+import random
 
 from flask import Flask
 from flask import request
@@ -17,8 +18,8 @@ app = Flask(__name__)
 
 
 @wrapper.call_stats
-def time_consuming_function():
-    time.sleep(1)
+def time_consuming_function(amount):
+    time.sleep(amount)
 
 
 # XXX: adding decorator on top will not cause stats to update, bacause Flask
@@ -31,7 +32,9 @@ def hello(username="World"):
     app.logger.debug("Debug message!")
     app.logger.info("Info message!")
 
-    time_consuming_function()
+    time_consuming_function(random.random() * 3)
+    time_consuming_function(random.random())
+
     return "Hello %(username)s!" % locals()
 
 
