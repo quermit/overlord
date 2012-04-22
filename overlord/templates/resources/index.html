@@ -1,0 +1,36 @@
+{% extends "../base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>
+        Resource usage
+        <small>Memory footprint, active thread count etc.</small>
+    </h1>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Resource</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Thread count</td>
+        <td>{{ resource_usage.thread_count }}</td>
+    </tr>
+
+    <tr>
+        <td>Initialized at</td>
+        <td>{{ format_datetime(resource_usage.initialized_at) }}</td>
+    </tr>
+
+    <tr>
+        <td>Uptime</td>
+        <td>{{ format_duration(resource_usage.uptime) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% end %}

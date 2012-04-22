@@ -6,9 +6,11 @@ Created on Apr 19, 2012
 @author: quermit
 """
 
+import datetime
 import functools
 import logging
 import time
+import threading
 
 
 # XXX: this is strange, because user logging in flask test app is turned on
@@ -31,6 +33,7 @@ class StatisticsManager(object):
     def __init__(self):
         self.call_stats = []
         self.logs = []
+        self.resource_usage = ResourceUsageManager()
 
         logging.setLoggerClass(OverlordLogger)
 
@@ -107,3 +110,17 @@ class _CallStatistics(Wrapper):
                 raise
 
         return wrapper
+
+
+class ResourceUsageManager(object):
+
+    def __init__(self):
+        self.initialized_at = datetime.datetime.now()
+
+    @property
+    def thread_count(self):
+        return threading.active_count()
+
+    @property
+    def uptime(self):
+        return (datetime.datetime.now() - self.initialized_at).seconds

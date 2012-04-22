@@ -12,6 +12,7 @@ from tornado import web
 from tornado import ioloop
 
 from . import core
+from . import helpers
 
 
 def _get_routing():
@@ -21,7 +22,9 @@ def _get_routing():
         (r"/logs", LoggingHandler, data),
         (r"/logs/(.*)", LoggingHandler, data),
         (r"/stats", StatsHandler, data),
-    ]    
+
+        (r"/resources", ResourceUsageHandler, data),
+    ]
 
 
 def start(address="0.0.0.0", port=8001):
@@ -29,7 +32,8 @@ def start(address="0.0.0.0", port=8001):
     app = web.Application(
             handlers=_get_routing(),
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
-            static_path=os.path.join(os.path.dirname(__file__), "static"))
+            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            ui_methods=helpers)
     app.listen(port, address, io_loop=separate_ioloop)
 
     t = threading.Thread(target=separate_ioloop.start)
@@ -77,3 +81,16 @@ class StatsHandler(web.RequestHandler):
                 result.append("  time: %.3f / %.3f / %.3f" % (
                         stats.min_time, stats.max_time, stats.avg_time))
         self.write("<br/>\n".join(result))
+
+
+# TODO: maybe move this class, in the same module where ResourceUsageManager
+#       lies? in this way, managers will be pretty independent (plugins?)
+class ResourceUsageHandler(web.RequestHandler):
+
+    def initialize(self, stats_manager):
+        self._stats_manager = stats_manager
+
+    def get(self):
+        """ GET /resources """
+        self.render('resources/index.html',
+            resource_usage=self._stats_manager.resource_usage)
