@@ -134,7 +134,8 @@ class ResourceUsageManager(object):
 
     @property
     def uptime(self):
-        return (datetime.datetime.now() - self.initialized_at).seconds
+        delta = (datetime.datetime.now() - self.initialized_at)
+        return delta.days * 86400 + delta.seconds
 
     @property
     def is_gc_enabled(self):

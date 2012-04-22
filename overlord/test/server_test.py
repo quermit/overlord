@@ -19,10 +19,11 @@ class TestStart(unittest.TestCase):
         self.mox.StubOutWithMock(web, "Application", True)
         self.app_mock = self.mox.CreateMockAnything("application")
         web.Application(
-                handlers=mox.IsA(list),
-                template_path=mox.Func(lambda a: a.endswith("/templates")),
-                static_path=mox.Func(lambda a: a.endswith("/static")),
-                ui_methods=mox.Func(lambda m: inspect.ismodule(m))
+            handlers=mox.IsA(list),
+            template_path=mox.Func(lambda a: a.endswith("/templates")),
+            static_path=mox.Func(lambda a: a.endswith("/static")),
+            ui_methods=mox.Func(lambda m: inspect.ismodule(m)),
+            ui_modules=mox.Func(lambda m: inspect.ismodule(m))
         ).AndReturn(self.app_mock)
 
         self.mox.StubOutWithMock(threading, "Thread", True)
