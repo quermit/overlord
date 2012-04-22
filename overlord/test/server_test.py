@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import inspect
 import mox
 import unittest
 import threading
@@ -21,6 +22,7 @@ class TestStart(unittest.TestCase):
                 handlers=mox.IsA(list),
                 template_path=mox.Func(lambda a: a.endswith("/templates")),
                 static_path=mox.Func(lambda a: a.endswith("/static")),
+                ui_methods=mox.Func(lambda m: inspect.ismodule(m))
         ).AndReturn(self.app_mock)
 
         self.mox.StubOutWithMock(threading, "Thread", True)
