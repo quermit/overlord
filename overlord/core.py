@@ -11,8 +11,11 @@ import collections
 import datetime
 import functools
 import gc
+import getpass
 import inspect
 import logging
+import os
+import sys
 import time
 import threading
 
@@ -122,6 +125,10 @@ class ResourceUsageManager(object):
         self.initialized_at = datetime.datetime.now()
 
     @property
+    def command_line_args(self):
+        return sys.argv
+
+    @property
     def thread_count(self):
         return threading.active_count()
 
@@ -160,9 +167,30 @@ class ResourceUsageManager(object):
             is_builtin = (object_type.__module__ == '__builtin__')
             if not is_builtin and not object_type.__module__.startswith("_"):
 
-                full_name = "%s.%s" % (object_type.__module__, object_type.__name__)
+                full_name = "%s.%s" % (object_type.__module__,
+                                       object_type.__name__)
                 counts[full_name] += 1
 
         return sorted(counts.items(), key=lambda x: x[1], reverse=True)
 
+
+    @property
+    def cwd(self):
+        return os.getcwd()
+
+    @property
+    def uid(self):
+        return os.getuid()
+
+    @property
+    def login(self):
+        return getpass.getuser()
+
+    @property
+    def gid(self):
+        return os.getgid()
+
+    @property
+    def pid(self):
+        return os.getpid()
 

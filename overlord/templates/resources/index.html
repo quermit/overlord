@@ -22,6 +22,11 @@
         </th>
     </tr>
     <tr>
+        <td>Command line arguments</td>
+        <td><code>{{ join_list(resource_usage.command_line_args, " ") }}</code></td>
+    </tr>
+
+    <tr>
         <td>Thread count</td>
         <td>{{ resource_usage.thread_count }}</td>
     </tr>
@@ -35,6 +40,39 @@
         <td>Uptime</td>
         <td>{{ format_duration(resource_usage.uptime) }}</td>
     </tr>
+
+    <tr>
+        <th colspan="2">
+            OS related statistics
+        </th>
+    </tr>
+
+    <tr>
+        <td>PID</td>
+        <td><code>{{ resource_usage.pid }}</code></td>
+    </tr>
+
+    <tr>
+        <td>CWD</td>
+        <td><code>{{ resource_usage.cwd }}</code></td>
+    </tr>
+
+    <tr>
+        <td>Login</td>
+        <td><code>{{ resource_usage.login }}</code></td>
+    </tr>
+
+    <tr>
+        <td>UID</td>
+        <td><code>{{ resource_usage.uid }}</code></td>
+    </tr>
+
+    <tr>
+        <td>GID</td>
+        <td><code>{{ resource_usage.gid }}</code></td>
+    </tr>
+
+    
 
 
     <tr>

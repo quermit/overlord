@@ -33,5 +33,5 @@ def boolean(handler, value, true_value, false_value):
     return true_value if value else false_value
 
 
-def join_list(handler, value):
-    return ", ".join(map(unicode, value))
+def join_list(handler, value, separator=", "):
+    return separator.join(map(unicode, value))
