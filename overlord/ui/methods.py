@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import datetime
 
-
-def format_datetime(handler, value, format='%H:%M / %d-%m-%Y'):
+def format_datetime(_, value, format='%H:%M / %d-%m-%Y'):
     return value.strftime(format)
 
 
-def format_duration(handler, delta):
+# TODO: make this function more robust, maybe use this implementedion
+#   http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html
+#       #method-i-distance_of_time_in_words
+def format_duration(_, delta):
     seconds = delta % 60
     minutes = (delta / 60) % 60
     hours = (delta / 3600) % 60
@@ -29,11 +30,11 @@ def format_duration(handler, delta):
     return " ".join(amount)
 
 
-def boolean(handler, value, true_value, false_value=""):
+def boolean(_, value, true_value, false_value=""):
     return true_value if value else false_value
 
 
-def join_list(handler, value, separator=", "):
+def join_list(_, value, separator=", "):
     return separator.join(map(unicode, value))
 
 

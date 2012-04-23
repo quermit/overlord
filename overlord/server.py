@@ -8,14 +8,13 @@ Created on Apr 19, 2012
 import logging
 import os
 import threading
-import re
 
 from tornado import web
 from tornado import ioloop
 
 from . import core
-from . import helpers
-from . import uimodules
+import ui.modules
+import ui.methods
 
 
 def _get_routing():
@@ -35,8 +34,8 @@ def start(address="0.0.0.0", port=8001):
             handlers=_get_routing(),
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            ui_methods=helpers,
-            ui_modules=uimodules)
+            ui_methods=ui.methods,
+            ui_modules=ui.modules)
 
     app.listen(port, address, io_loop=separate_ioloop)
 

@@ -25,6 +25,7 @@ pip-log.txt
 
 # virtualenv
 .venv
+.vip
 
 #Mr Developer
 .mr.developer.cfg

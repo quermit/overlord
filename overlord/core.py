@@ -3,8 +3,7 @@
 """
 Created on Apr 19, 2012
 
-@author: quermit
-@author: dejw
+@author: quermit, dejw
 """
 
 import collections
@@ -12,7 +11,6 @@ import datetime
 import functools
 import gc
 import getpass
-import inspect
 import logging
 import os
 import sys
@@ -136,10 +134,10 @@ class ResourceUsageManager(object):
     @property
     def uptime(self):
         delta = (datetime.datetime.now() - self.initialized_at)
-        return delta.days * 86400 + delta.seconds
+        return int(delta.total_seconds())
 
     @property
-    def is_gc_enabled(self):
+    def gc_enabled(self):
         return gc.isenabled()
 
     @property
