@@ -19,8 +19,8 @@ import time
 import threading
 
 
-# XXX: this is strange, because user logging in flask test app is turned on
-#      after reaching localhost:8001/logs URL
+# XXX(dejw): this is strange, because user logging in flask test app is turned
+#   on after reaching localhost:8001/logs URL
 class OverlordLogger(logging.getLoggerClass()):
 
     @property
@@ -63,13 +63,12 @@ class Wrapper(object):
 
 class _CallStatistics(Wrapper):
     """
-        TODO: since we would like to have call-stack like statiscs, it would be
-              nice to have one instance of _CallStatistics per usage:
-                one global and each for one call-stack
-              it will allow to see global stats and fine grained stats for
-              each distinct traceback
+        TODO(dejw): since we would like to have call-stack like statiscs, it
+            would be nice to have one instance of _CallStatistics per usage:
+            one global and each for one call-stack; it will allow to see global
+            stats and fine grained stats for each distinct traceback
 
-        XXX: what about recursive functions?
+        XXX(dejw): what about recursive functions?
     """
     _TIME_CONST = 0.01
 
@@ -163,7 +162,7 @@ class ResourceUsageManager(object):
         for object_ in objects:
             object_type = type(object_)
 
-            # FIXNE: inspect.isbuiltin(object_) seems to not working
+            # XXX(dejw): inspect.isbuiltin(object_) seems to not working
             is_builtin = (object_type.__module__ == '__builtin__')
             if not is_builtin and not object_type.__module__.startswith("_"):
 

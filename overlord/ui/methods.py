@@ -5,7 +5,7 @@ def format_datetime(_, value, format='%H:%M / %d-%m-%Y'):
     return value.strftime(format)
 
 
-# TODO: make this function more robust, maybe use this implementedion
+# TODO(dejw): make this function more robust, maybe use this implementedion
 #   http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html
 #       #method-i-distance_of_time_in_words
 def format_duration(_, delta):

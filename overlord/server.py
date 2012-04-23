@@ -2,7 +2,7 @@
 """
 Created on Apr 19, 2012
 
-@author: quermit
+@author: quermit, dejw
 """
 
 import logging
@@ -86,8 +86,9 @@ class StatsHandler(web.RequestHandler):
         self.render('callstats/index.html', stats=stats)
 
 
-# TODO: maybe move this class, in the same module where ResourceUsageManager
-#       lies? in this way, managers will be pretty independent (plugins?)
+# TODO(dejw): maybe move this class, in the same module where
+#   ResourceUsageManager lies? in this way, managers will be pretty independent
+#   (plugins?)
 class ResourceUsageHandler(web.RequestHandler):
 
     def initialize(self, stats_manager):
