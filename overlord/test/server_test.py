@@ -8,6 +8,7 @@ import threading
 from tornado import web
 from tornado import ioloop
 
+from overlord import core
 from overlord import server
 
 
@@ -79,4 +80,27 @@ class HomeHandler(unittest.TestCase):
         self.mox.ReplayAll()
 
         server.HomeHandler.get(self.handler_mock)
+        self.mox.VerifyAll()
+
+
+class ResourceUsageHandler(unittest.TestCase):
+
+    def setUp(self):
+        self.mox = mox.Mox()
+        self.handler_mock = self.mox.CreateMock(server.ResourceUsageHandler)
+
+        self.stats_manager_mock = self.mox.CreateMock(core.StatisticsManager)
+        self.stats_manager_mock.resource_usage = self.mox.CreateMockAnything()
+
+        self.handler_mock._stats_manager = self.stats_manager_mock
+
+    def tearDown(self):
+        self.mox.ResetAll()
+
+    def test_handler_renders_index_for_get_request(self):
+        self.handler_mock.render("resources/index.html",
+            resource_usage=self.stats_manager_mock.resource_usage)
+        self.mox.ReplayAll()
+
+        server.ResourceUsageHandler.get(self.handler_mock)
         self.mox.VerifyAll()
