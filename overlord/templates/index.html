@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Overlord - awesome monitoring and management tool for Python{% end %}
+
+{% block sidebar %}
+<li class="nav-header">Sidebar</li>
+<li class="active"><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+<li><a href="#">Link</a></li>
+{% end %}
+
+{% block content %}
+<div class="hero-unit">
+  <h1>I'm awesome!</h1>
+  <p>The overlord is a simple library for Python application 
+      monitoring and management in a very pythonic way.</p>
+  <p>
+      <a class="btn btn-primary btn-large" href="https://github.com/quermit/overlord/tree/bootstrap_app#readme">Learn more &raquo;</a>
+  </p>
+</div>
+<div class="row-fluid">
+  <div class="span4">
+    <h2>Profiling</h2>
+    <p>Donec id elit non mi porta gravida at eget metus. 
+        Fusce dapibus, tellus ac cursus commodo, tortor mauris 
+        condimentum nibh, ut fermentum massa justo sit amet risus. 
+        Etiam porta sem malesuada magna mollis euismod. 
+        Donec sed odio dui. </p>
+    <p><a class="btn" href="/stats">View details &raquo;</a></p>
+  </div><!--/span-->
+  <div class="span4">
+    <h2>Logs</h2>
+    <p>Donec id elit non mi porta gravida at eget metus. 
+        Fusce dapibus, tellus ac cursus commodo, tortor mauris 
+        condimentum nibh, ut fermentum massa justo sit amet risus. 
+        Etiam porta sem malesuada magna mollis euismod. 
+        Donec sed odio dui. </p>
+    <p><a class="btn" href="/logs">View details &raquo;</a></p>
+  </div><!--/span-->
+  <div class="span4">
+    <h2>Management</h2>
+    <p>Donec id elit non mi porta gravida at eget metus. 
+        Fusce dapibus, tellus ac cursus commodo, tortor mauris 
+        condimentum nibh, ut fermentum massa justo sit amet risus. 
+        Etiam porta sem malesuada magna mollis euismod. 
+        Donec sed odio dui. </p>
+    <p><a class="btn" href="/management">View details &raquo;</a></p>
+  </div><!--/span-->
+</div><!--/row-->
+{% end %}

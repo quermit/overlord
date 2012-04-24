@@ -18,6 +18,7 @@ import overlord
 from overlord import wrapper
 
 
+@wrapper.call_stats
 def some_time_consuming_function(amount):
     time.sleep(amount)
 
@@ -27,6 +28,7 @@ class MainHandler(web.RequestHandler):
     @wrapper.call_stats
     def get(self):
         some_time_consuming_function(random.random() * 3.0)
+        some_time_consuming_function(random.random())
         self.write("Boom!")
 
 
@@ -36,9 +38,15 @@ application = web.Application([
 
 
 def run():
+    port = 5000
     overlord.start()
-    application.listen(int(sys.argv[1]))
-    ioloop.IOLoop.instance().start()
+    application.listen(port)
+    print(" * Running on http://127.0.0.1:%d/" % port)
+    try:
+        ioloop.IOLoop.instance().start()
+    except KeyboardInterrupt:
+        pass
+
 
 if __name__ == "__main__":
     run()

@@ -17,7 +17,3 @@ class TestCallStatsWrapper(unittest.TestCase):
 
         self.assertEqual(123, result)
         self.assertEqual(1, manager.call_stats[-1].calls)
-
-
-if __name__ == "__main__":
-    unittest.main()
