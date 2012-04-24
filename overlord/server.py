@@ -83,7 +83,7 @@ class StatsHandler(web.RequestHandler):
             stats.append((endpoint, stat.calls, stat.errors, stat.min_time,
                           stat.avg_time, stat.max_time))
 
-        self.render('callstats/index.html', stats=stats)
+        self.render("callstats/index.html", stats=stats)
 
 
 # TODO(dejw): maybe move this class, in the same module where
@@ -96,5 +96,5 @@ class ResourceUsageHandler(web.RequestHandler):
 
     def get(self):
         """ GET /resources """
-        self.render('resources/index.html',
+        self.render("resources/index.html",
             resource_usage=self._stats_manager.resource_usage)

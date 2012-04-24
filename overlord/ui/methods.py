@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-def format_datetime(_, value, format='%H:%M / %d-%m-%Y'):
-    return value.strftime(format)
+def format_datetime(_, value, date_format="%H:%M / %d-%m-%Y"):
+    return value.strftime(date_format)
 
 
 # TODO(dejw): make this function more robust, maybe use this implementedion
