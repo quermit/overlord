@@ -1,0 +1,14 @@
+.table-nested {
+    
+}
+
+.table.table-nested th, .table.table-nested td {
+    border-left: none;
+    border-top: 1px solid #DDD;
+    background: none;
+}
+
+.table.table-nested tbody tr:nth-child(odd) td, 
+.table.table-nested tbody tr:nth-child(odd) th{
+    background: none;
+}

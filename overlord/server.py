@@ -2,29 +2,41 @@
 """
 Created on Apr 19, 2012
 
-@author: quermit
+@author: quermit, dejw
 """
 
-import threading
 import logging
+import os
+import threading
 
 from tornado import web
 from tornado import ioloop
 
 from . import core
+import ui.modules
+import ui.methods
+
+
+def _get_routing():
+    data = dict(stats_manager=core.StatisticsManager.instance())
+    return [
+        (r"/", HomeHandler),
+        (r"/logs", LoggingHandler, data),
+        (r"/logs/(.*)", LoggingHandler, data),
+        (r"/stats", StatsHandler, data),
+        (r"/resources", ResourceUsageHandler, data),
+    ]
 
 
 def start(address="0.0.0.0", port=8001):
-    data = dict(stats_manager=core.StatisticsManager.instance())
-
-    routing = [
-        (r"/", HomeHandler),
-        (r"/logs/(.*)", LoggingHandler, data),
-        (r"/stats", StatsHandler, data),
-    ]
-
     separate_ioloop = ioloop.IOLoop()
-    app = web.Application(routing)
+    app = web.Application(
+            handlers=_get_routing(),
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            ui_methods=ui.methods,
+            ui_modules=ui.modules)
+
     app.listen(port, address, io_loop=separate_ioloop)
 
     t = threading.Thread(target=separate_ioloop.start)
@@ -35,7 +47,7 @@ def start(address="0.0.0.0", port=8001):
 class HomeHandler(web.RequestHandler):
 
     def get(self):
-        self.write("Hello world!")
+        self.render("index.html")
 
 
 class LoggingHandler(web.RequestHandler):
@@ -62,13 +74,27 @@ class StatsHandler(web.RequestHandler):
         self._stats_manager = stats_manager
 
     def get(self):
-        result = []
-        for stats in self._stats_manager.call_stats:
-            result.append("%s :: %s" % (
-                    stats.module.__name__, stats.function.__name__))
-            result.append("  calls: %d / errors: %d" % (
-                    stats.calls, stats.errors))
-            if stats.calls > 0:
-                result.append("  time: %.3f / %.3f / %.3f" % (
-                        stats.min_time, stats.max_time, stats.avg_time))
-        self.write("<br/>\n".join(result))
+        """ GET /stats """
+
+        stats = []
+        for stat in self._stats_manager.call_stats:
+            endpoint = "%s.%s" % (stat.module.__name__, stat.function.__name__)
+
+            stats.append((endpoint, stat.calls, stat.errors, stat.min_time,
+                          stat.avg_time, stat.max_time))
+
+        self.render("callstats/index.html", stats=stats)
+
+
+# TODO(dejw): maybe move this class, in the same module where
+#   ResourceUsageManager lies? in this way, managers will be pretty independent
+#   (plugins?)
+class ResourceUsageHandler(web.RequestHandler):
+
+    def initialize(self, stats_manager):
+        self._stats_manager = stats_manager
+
+    def get(self):
+        """ GET /resources """
+        self.render("resources/index.html",
+            resource_usage=self._stats_manager.resource_usage)

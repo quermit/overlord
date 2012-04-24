@@ -1,0 +1,5 @@
+{% for index_path, name in handlers %}
+    <li {{ boolean(request.path == index_path, "class='active'") }}>
+        <a href="{{ index_path }}">{{ name }}</a>
+    </li>
+{% end %}
