@@ -18,6 +18,8 @@ import resource
 import time
 import threading
 
+from . import compatibility
+
 
 # XXX(dejw): this is strange, because user logging in flask test app is turned
 #   on after reaching localhost:8001/logs URL
@@ -133,7 +135,7 @@ class ResourceUsageManager(object):
     @property
     def uptime(self):
         delta = (datetime.datetime.now() - self.initialized_at)
-        return int(delta.total_seconds())
+        return int(compatibility.total_seconds(delta))
 
     @property
     def gc_enabled(self):
