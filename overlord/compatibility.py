@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 """
 Created on Apr 24, 2012
 
 @author: quermit
 """
+
 
 def total_seconds(td):
     """The function that is missing in datetime.timedelta in python 2.6."""
