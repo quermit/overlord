@@ -13,8 +13,8 @@ from tornado import web
 from tornado import ioloop
 
 from . import core
-import ui.modules
-import ui.methods
+from .ui import modules as ui_modules
+from .ui import methods as ui_methods
 
 
 def _get_routing():
@@ -34,8 +34,8 @@ def start(address="0.0.0.0", port=8001):
             handlers=_get_routing(),
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            ui_methods=ui.methods,
-            ui_modules=ui.modules)
+            ui_methods=ui_methods,
+            ui_modules=ui_modules)
 
     app.listen(port, address, io_loop=separate_ioloop)
 
