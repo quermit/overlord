@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import inspect
-import mox
 import unittest
 import threading
 
 from tornado import web
 from tornado import ioloop
 
+from .mox3 import mox
 from overlord import core
 from overlord import server
 
