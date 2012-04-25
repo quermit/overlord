@@ -1,3 +1,2 @@
 tornado==2.2
 wsgiref==0.1.2
-mox>=0.5.3
